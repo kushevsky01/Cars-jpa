@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import service.simpleservice.domain.Mark;
 import service.simpleservice.domain.Model;
 import service.simpleservice.domain.Modification;
+import service.simpleservice.domain.Search;
 import service.simpleservice.servicies.CarService;
+import service.simpleservice.servicies.SearchService;
 
 import java.util.List;
 
@@ -16,6 +18,9 @@ import java.util.List;
 public class FormController {
     @Autowired
     CarService cars;
+
+    @Autowired
+    SearchService Serv;
 
     @GetMapping("/marks")
     public List getMarks() {
@@ -29,13 +34,13 @@ public class FormController {
 
 
     @PostMapping("/marks")
-    public void addMark(@RequestParam(value = "name", defaultValue = "no mark name") String name, @RequestParam(value = "caption", defaultValue = "no caption") String caption, @RequestParam(value = "active", defaultValue = "false") Boolean active) {
-        cars.getMark(name, caption, active);
+    public void addMark(@RequestBody Mark mark) {
+        cars.getMark(mark);
     }
 
     @PostMapping("/marks/{id}/models")
-    public void addModel(@RequestParam(value = "name", defaultValue = "no mark name") String name, @RequestParam(value = "caption", defaultValue = "no caption") String caption, @RequestParam(value = "active", defaultValue = "false") Boolean active, @PathVariable("id") long id) {
-        cars.getModel(name, caption, active, id);
+    public void addModel(@RequestBody Model model, @PathVariable("id") long id) {
+        cars.getModel(model, id);
     }
 
 
@@ -52,20 +57,25 @@ public class FormController {
 
 
     @PostMapping("/marks/{markid}/models/{modelid}/mod")
-    public void addModification(@RequestParam(value = "name", defaultValue = "no mark name") String name, @RequestParam(value = "caption", defaultValue = "no caption") String caption, @RequestParam(value = "active", defaultValue = "false") Boolean active, @PathVariable("modelid") Long modelid) {
-        cars.getModification(name, caption, active, modelid);
+    public void addModification(@RequestBody Modification mod, @PathVariable("modelid") Long modelid) {
+        cars.getModification(mod, modelid);
     }
 
 
     @GetMapping("/marks/{markid}/models/{modelid}/mod")
     public List<Modification> getModificationsByModel(@PathVariable("modelid") Long modelid) {
         Model model = cars.getModelById(modelid);
-        return model.getModifics();
+        return model.getModifications();
     }
 
     @GetMapping("/marks/{markid}/models/{modelid}/mod/{modid}")
     public Modification getModificById(@PathVariable("modid") Long modid) {
         return cars.getModificationById(modid);
+    }
+
+    @PostMapping("/search")
+    public Mark getSearch(@RequestBody Search search) {
+        return Serv.searching(search);
     }
 
 }

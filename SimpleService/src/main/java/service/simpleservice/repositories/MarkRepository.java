@@ -5,5 +5,5 @@ import service.simpleservice.domain.Mark;
 
 
 public interface MarkRepository extends JpaRepository<Mark, Long> {
-
+    Mark findMarkByMarkName(String markName);
 }

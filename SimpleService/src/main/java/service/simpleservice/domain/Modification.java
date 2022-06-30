@@ -2,19 +2,22 @@ package service.simpleservice.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name ="Modif_TABLE")
 public class Modification {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
     private boolean active;
-    private String name;
-    private String caption;
+    private String body;
+    private String modCaption;
+    private int beginPeriod;
+    private int endPeriod;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
@@ -41,12 +44,12 @@ public class Modification {
         this.active = active;
     }
 
-    public String getName() {
-        return name;
+    public String getBody() {
+        return body;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBody(String name) {
+        this.body = name;
     }
 
     public Model getModel() {
@@ -58,10 +61,26 @@ public class Modification {
     }
 
     public String getCaption() {
-        return caption;
+        return modCaption;
     }
 
     public void setCaption(String caption) {
-        this.caption = caption;
+        this.modCaption = caption;
+    }
+
+    public int getBeginPeriod() {
+        return beginPeriod;
+    }
+
+    public void setBeginPeriod(int beginPeriod) {
+        this.beginPeriod = beginPeriod;
+    }
+
+    public int getEndPeriod() {
+        return endPeriod;
+    }
+
+    public void setEndPeriod(int endPeriod) {
+        this.endPeriod = endPeriod;
     }
 }

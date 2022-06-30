@@ -1,21 +1,22 @@
 package service.simpleservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name ="Mark_TABLE")
 
 public class Mark {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
-    private boolean active;
-    private String name;
-    private String caption;
+    private boolean markActive;
+    private String markName;
+    private String markCaption;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "mark", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -34,13 +35,30 @@ public class Mark {
     }
 
     public boolean isActive() {
-        return active;
+        return markActive;
     }
 
     public void setActive(boolean active) {
-        this.active = active;
+        this.markActive = active;
     }
 
+
+
+    public String getName() {
+        return markName;
+    }
+
+    public void setName(String name) {
+        this.markName = name;
+    }
+
+    public String getCaption() {
+        return markCaption;
+    }
+
+    public void setCaption(String caption) {
+        this.markCaption = caption;
+    }
 
     public List<Model> getModels() {
         return models;
@@ -49,23 +67,6 @@ public class Mark {
     public void setModels(List<Model> models) {
         this.models = models;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCaption() {
-        return caption;
-    }
-
-    public void setCaption(String caption) {
-        this.caption = caption;
-    }
-
     public void addModels(Model model){
         models.add(model);
     }
