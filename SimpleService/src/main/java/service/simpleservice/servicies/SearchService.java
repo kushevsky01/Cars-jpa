@@ -90,15 +90,15 @@ public class SearchService {
         for (Model model : models) {
             for (Modification modification : model.getModifications()) {
 
-                if (modification.getBeginPeriod() == BeginPeriod) {
+                if (modification.getBeginPeriod() >= BeginPeriod) {
                     modifics.add(modification);
-                    model.setModifications(null);
-                    model.setModifications(modifics);
                 }
             }
 
 
             if (model.getName().equals(modelName) && modifics.size() != 0) {
+                model.setModifications(null);
+                model.setModifications(modifics);
                 modelss.add(model);
                 mark.setModels(null);
                 mark.setModels(modelss);
@@ -120,14 +120,15 @@ public class SearchService {
         for (Model model : models) {
             for (Modification modification : model.getModifications()) {
 
-                if (modification.getEndPeriod() == EndPeriod) {
+                if (modification.getEndPeriod() <= EndPeriod) {
                     modifics.add(modification);
-                    model.setModifications(null);
-                    model.setModifications(modifics);
+
                 }
             }
 
             if (model.getName().equals(modelName) && modifics.size() != 0) {
+                model.setModifications(null);
+                model.setModifications(modifics);
                 modelss.add(model);
                 mark.setModels(null);
                 mark.setModels(modelss);
@@ -149,14 +150,15 @@ public class SearchService {
         for (Model model : models) {
             for (Modification modification : model.getModifications()) {
 
-                if (modification.getEndPeriod() == EndPeriod && modification.getBody().equals(body)) {
+                if (modification.getEndPeriod() <= EndPeriod && modification.getBody().equals(body)) {
                     modifics.add(modification);
-                    model.setModifications(null);
-                    model.setModifications(modifics);
+
                 }
             }
 
             if (model.getName().equals(modelName) && modifics.size() != 0) {
+                model.setModifications(null);
+                model.setModifications(modifics);
                 modelss.add(model);
                 mark.setModels(null);
                 mark.setModels(modelss);
@@ -178,14 +180,14 @@ public class SearchService {
         for (Model model : models) {
             for (Modification modification : model.getModifications()) {
 
-                if ((modification.getBeginPeriod() == BeginPeriod) && (modification.getBody().equals(body))) {
+                if ((modification.getBeginPeriod() >= BeginPeriod) && (modification.getBody().equals(body))) {
                     modifics.add(modification);
-                    model.setModifications(null);
-                    model.setModifications(modifics);
                 }
             }
 
             if (model.getName().equals(modelName) && modifics.size() != 0) {
+                model.setModifications(null);
+                model.setModifications(modifics);
                 modelss.add(model);
                 mark.setModels(null);
                 mark.setModels(modelss);
@@ -197,6 +199,11 @@ public class SearchService {
         return mark;
     }
 
+    public boolean getPeriod(int Begin1, int Begin2, int End1, int End2){
+
+        return true;
+    }
+
     public Mark getMarkAndModelAndBeginPeriodAndEndPeriod(String markName, String modelName, int BeginPeriod, int EndPeriod) {
         List<Modification> modifics = new ArrayList<>();
         List<Model> modelss = new ArrayList<>();
@@ -206,10 +213,8 @@ public class SearchService {
         for (Model model : models) {
             for (Modification modification : model.getModifications()) {
 
-                if (modification.getBeginPeriod() == BeginPeriod && modification.getEndPeriod() == EndPeriod) {
+                if (modification.getBeginPeriod() >= BeginPeriod && modification.getEndPeriod() <= EndPeriod) {
                     modifics.add(modification);
-                    model.setModifications(null);
-                    model.setModifications(modifics);
                 }
             }
 
@@ -235,14 +240,14 @@ public class SearchService {
         for (Model model : models) {
             for (Modification modification : model.getModifications()) {
 
-                if (modification.getBeginPeriod() == BeginPeriod && modification.getEndPeriod() == EndPeriod && modification.getBody().equals(body)) {
+                if (modification.getBeginPeriod() >= BeginPeriod && modification.getEndPeriod() <= EndPeriod && modification.getBody().equals(body)) {
                     modifics.add(modification);
-                    model.setModifications(null);
-                    model.setModifications(modifics);
                 }
             }
 
             if (model.getName().equals(modelName) && modifics.size() != 0) {
+                model.setModifications(null);
+                model.setModifications(modifics);
                 modelss.add(model);
                 mark.setModels(null);
                 mark.setModels(modelss);
